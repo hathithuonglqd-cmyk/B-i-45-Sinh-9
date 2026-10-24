@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌸 Phiếu Bài Tập KHTN 9 - Di Truyền Liên Kết 🐾</title>
+    <!-- Đảm bảo hiển thị font tiếng Việt chuẩn -->
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-body: #fdf5f6;
+            --box-bg: #ffffff;
+            --primary: #ffccd5; /* Hồng phấn pastel */
+            --primary-dark: #ff758f;
+            --secondary: #d8f3dc; /* Xanh mint pastel */
+            --secondary-dark: #52b788;
+            --text-main: #4a4a4a;
+            --radius-lg: 24px;
+            --radius-md: 16px;
+        }
+
+        * { box-sizing: border-box; font-family: 'Quicksand', sans-serif; }
+        
+        body { 
+            background-color: var(--bg-body); 
+            color: var(--text-main); 
+            margin: 0; padding: 20px; 
+            display: flex; justify-content: center; min-height: 100vh; 
+        }
+        
+        .container { 
+            width: 100%; max-width: 900px; background: var(--box-bg); 
+            border-radius: var(--radius-lg); padding: 30px; 
+            box-shadow: 0 15px 40px rgba(255, 117, 143, 0.15); 
+            border: 5px solid #fff; position: relative; 
+        }
+
+        .hidden { display: none !important; }
+        .text-center { text-align: center; }
+
+        /* --- NÚT BẤM --- */
+        .btn { 
+            background: linear-gradient(135deg, var(--primary-dark), #ffb3c6); color: white; 
+            border: none; padding: 14px 30px; border-radius: 30px; font-weight: 800; font-size: 12pt; 
+            cursor: pointer; box-shadow: 0 8px 20px rgba(255, 117, 143, 0.3); transition: 0.3s; 
+        }
+        .btn:hover { transform: translateY(-4px); box-shadow: 0 10px 25px rgba(255, 117, 143, 0.5); }
+        .btn-submit { background: linear-gradient(135deg, var(--secondary-dark), #95d5b2); width: 100%; font-size: 15pt; margin-top: 30px; padding: 18px; box-shadow: 0 8px 20px rgba(82, 183, 136, 0.3); }
+
+        /* --- MÀN HÌNH ĐĂNG NHẬP --- */
+        .login-box { max-width: 420px; margin: 60px auto; padding: 40px 30px; border-radius: var(--radius-lg); border: 4px dashed var(--primary-dark); text-align: center; background: #fff; }
+        .login-box h1 { color: var(--primary-dark); margin-top: 0; font-size: 24pt; font-weight: 800;}
+        .input-group { margin-bottom: 20px; text-align: left; }
+        .input-group label { display: block; font-weight: 800; margin-bottom: 8px; color: var(--text-main); font-size: 11pt;}
+        .input-group input { width: 100%; padding: 15px; border: 3px solid var(--primary); border-radius: var(--radius-md); font-size: 12pt; outline: none; transition: 0.3s; font-weight: 700; text-align: center; color: var(--primary-dark);}
+        .input-group input:focus { border-color: var(--primary-dark); background: #fff0f3;}
+
+        /* --- MÀN HÌNH BÀI HỌC --- */
+        .lesson-header { background: var(--primary); border-radius: var(--radius-lg); padding: 20px 30px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center; border: 3px dashed var(--primary-dark); }
+        .student-badge { font-weight: 800; color: #fff; font-size: 12pt; background: var(--primary-dark); padding: 8px 20px; border-radius: 20px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); margin-top: 5px;}
+        .timer-badge { background: #fff; border: 3px solid var(--primary-dark); padding: 8px 25px; border-radius: 25px; font-weight: 800; color: var(--primary-dark); font-size: 14pt; }
+        
+        .part-title { color: #fff; background: var(--secondary-dark); padding: 10px 25px; border-radius: var(--radius-md); display: inline-block; font-size: 14pt; font-weight: 800; margin-bottom: 25px; text-transform: uppercase; box-shadow: 0 4px 10px rgba(82,183,136,0.3);}
+        
+        /* PHẦN A: TRỰC QUAN & LÝ THUYẾT */
+        .part-a-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 25px; margin-bottom: 40px; }
+        @media (max-width: 768px) { .part-a-grid { grid-template-columns: 1fr; } }
+        
+        .visual-box { background: #fff; border: 4px dashed var(--primary-dark); border-radius: var(--radius-lg); padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 280px; position: relative;}
+        .visual-title { font-weight: 800; color: var(--primary-dark); font-size: 13pt; margin-bottom: 15px; text-transform: uppercase;}
+        
+        .theory-box { background: #f8f9fa; border-left: 8px solid var(--secondary-dark); border-radius: var(--radius-md); padding: 25px; line-height: 1.7; font-size: 11.5pt; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+        .theory-box h3 { margin-top: 0; color: var(--secondary-dark); border-bottom: 3px solid var(--secondary); padding-bottom: 10px; font-weight: 800;}
+        .theory-box ul { margin: 0; padding-left: 20px; }
+        .theory-box li { margin-bottom: 12px; }
+
+        /* PHẦN B: BÀI TẬP TƯƠNG TÁC */
+        .q-card { background: #fff; border: 3px solid #f8edeb; border-radius: var(--radius-lg); padding: 30px; margin-bottom: 25px; box-shadow: 0 6px 15px rgba(0,0,0,0.02); }
+        .q-text { font-weight: 800; margin-bottom: 20px; font-size: 13pt; color: #2b2d42;}
+        .lvl-badge { font-size: 10pt; padding: 6px 15px; border-radius: 15px; font-weight: 800; float: right; }
+        .lvl-nb { background: #bde0fe; color: #023e8a; } .lvl-th { background: #d8f3dc; color: #1b4332; } .lvl-vd { background: #ffdfd3; color: #9d0208; }
+
+        /* Dạng 1: Trắc nghiệm */
+        .mcq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        @media (max-width: 600px) { .mcq-grid { grid-template-columns: 1fr; } }
+        .mcq-opt { background: #f8f9fa; border: 3px solid #e9ecef; border-radius: var(--radius-md); padding: 14px 20px; cursor: pointer; transition: 0.2s; font-weight: 700; font-size: 11.5pt;}
+        .mcq-opt.selected { background: var(--primary); border-color: var(--primary-dark); color: #fff; box-shadow: 0 4px 10px rgba(255,143,163,0.3);}
+
+        /* Dạng 2: Đúng/Sai */
+        .tf-table { width: 100%; border-collapse: collapse; }
+        .tf-table th, .tf-table td { border: 2px solid #e9ecef; padding: 15px; text-align: left; }
+        .tf-table th { background: #f8f9fa; text-align: center; font-weight: 800;}
+        .tf-btn { padding: 10px 20px; border-radius: 12px; border: 3px solid #ccc; background: #fff; cursor: pointer; font-weight: 800; transition: 0.2s; font-size: 11pt;}
+        .tf-btn.selected { background: var(--secondary-dark); color: #fff; border-color: var(--secondary-dark); box-shadow: 0 4px 10px rgba(64,145,108,0.3);}
+
+        /* Dạng 3: Điền từ */
+        .word-bank { background: #fff3b0; padding: 15px; border-radius: 15px; text-align: center; font-weight: 800; color: #e09f3e; margin-bottom: 20px; border: 2px dashed #e09f3e;}
+        .fill-text { line-height: 2.8; font-size: 12pt; font-weight: 600;}
+        .fill-inp { border: none; border-bottom: 3px solid var(--primary-dark); background: transparent; font-weight: 800; color: var(--primary-dark); font-size: 12pt; outline: none; padding: 0 10px; width: 120px; text-align: center; transition: 0.3s;}
+        .fill-inp:focus { background: var(--primary); border-radius: 8px 8px 0 0; color: #fff;}
+
+        /* Dạng 4: Kéo thả (Chạm-Ghép) */
+        .drag-pool { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; background: #e2eafc; padding: 20px; border-radius: var(--radius-md); }
+        .drag-item { background: white; border: 3px solid #abc4ff; padding: 12px 20px; border-radius: 14px; cursor: pointer; font-weight: 800; transition: 0.2s; color: #1d3557; font-size: 12pt;}
+        .drag-item.active { background: #abc4ff; color: white; transform: scale(1.08); box-shadow: 0 4px 10px rgba(171,196,255,0.5);}
+        .drag-item.used { opacity: 0.3; pointer-events: none; }
+        .drop-zone { border: 3px dashed #b1a7a6; background: #f8f9fa; padding: 15px; border-radius: 14px; text-align: center; cursor: pointer; font-weight: 800; color: #888; transition: 0.2s; font-size: 12pt;}
+        .drop-zone.filled { background: var(--secondary); border-color: var(--secondary-dark); color: #1b4332; }
+
+        /* Chấm chữa AI */
+        .feedback { margin-top: 20px; padding: 18px; border-radius: 15px; display: none; align-items: flex-start; gap: 15px; border: 3px dashed transparent; }
+        .fb-correct { background: #d8f3dc; border-color: #74c69d; }
+        .fb-wrong { background: #ffdad6; border-color: #ff8fa3; }
+        .ai-avatar { font-size: 30pt; line-height: 1; }
+        .ai-bubble { background: #fff; padding: 15px; border-radius: 12px; position: relative; width: 100%; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        .ai-title { color: var(--primary-dark); font-weight: 800; margin: 0 0 8px 0; font-size: 12pt;}
+        .ai-exp { margin: 0; font-size: 11pt; line-height: 1.6; color: #4a4a4a; font-weight: 600;}
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <!-- MÀN HÌNH ĐĂNG NHẬP -->
+    <div id="screen-login">
+        <div class="login-box">
+            <h1>🌸 KHTN 9 🐾</h1>
+            <p style="margin-bottom: 25px; color: #666; font-weight: 700; font-size: 13pt;">Phiếu Học Tập Tương Tác</p>
+            <div class="input-group">
+                <label>👤 Họ và tên của em:</label>
+                <input type="text" id="inp-name" placeholder="Ví dụ: Hoàng Thu Thảo">
+            </div>
+            <div class="input-group">
+                <label>🏫 Lớp:</label>
+                <input type="text" id="inp-class" placeholder="Ví dụ: 9A1">
+            </div>
+            <button class="btn" style="width: 100%; margin-top: 10px; padding: 16px;" onclick="startLearning()">BẮT ĐẦU VÀO LÀM BÀI 🚀</button>
+        </div>
+    </div>
+
+    <!-- MÀN HÌNH BÀI LÀM -->
+    <div id="screen-lesson" class="hidden">
+        
+        <div class="lesson-header">
+            <div>
+                <h1 style="margin:0; font-size: 18pt; font-weight: 800; color: #fff;">Bài 45: Di truyền liên kết</h1>
+                <div class="student-badge">👤 <span id="display-name"></span> | 🏫 <span id="display-class"></span></div>
+            </div>
+            <div class="timer-badge" id="timer">⏱️ 00:00</div>
+        </div>
+
+        <div class="part-title">🌟 PHẦN A: SƠ ĐỒ TRỰC QUAN & LÝ THUYẾT</div>
+        <div class="part-a-grid">
+            <!-- KHỐI A: Trực quan SVG -->
+            <div class="visual-box">
+                <div class="visual-title">Mô phỏng Di truyền liên kết</div>
+                <svg viewBox="0 0 300 220" width="100%" height="220" style="background:#f1faee; border-radius:12px;">
+                    <!-- Chromosome 1 -->
+                    <rect x="100" y="30" width="24" height="130" rx="12" fill="#a2d2ff" stroke="#1d3557" stroke-width="2"/>
+                    <rect x="95" y="60" width="34" height="12" fill="#ef476f"/> <text x="75" y="72" font-weight="bold" font-size="14" fill="#ef476f">A</text>
+                    <rect x="95" y="130" width="34" height="12" fill="#ffd166"/> <text x="75" y="142" font-weight="bold" font-size="14" fill="#e09f3e">B</text>
+                    <circle cx="112" cy="95" r="5" fill="#1d3557" /> <!-- Tâm động -->
+                    
+                    <!-- Chromosome 2 -->
+                    <rect x="180" y="30" width="24" height="130" rx="12" fill="#bde0fe" stroke="#1d3557" stroke-width="2"/>
+                    <rect x="175" y="60" width="34" height="12" fill="#ef476f"/> <text x="220" y="72" font-weight="bold" font-size="14" fill="#ef476f">a</text>
+                    <rect x="175" y="130" width="34" height="12" fill="#ffd166"/> <text x="220" y="142" font-weight="bold" font-size="14" fill="#e09f3e">b</text>
+                    <circle cx="192" cy="95" r="5" fill="#1d3557" />
+                    
+                    <text x="150" y="195" text-anchor="middle" font-size="12" font-weight="bold" fill="#1d3557">Các gen liên kết trên cùng 1 Nhiễm sắc thể</text>
+                    
+                    <!-- Ruồi giấm mini trang trí -->
+                    <ellipse cx="40" cy="30" rx="15" ry="8" fill="#555"/>
+                    <ellipse cx="40" cy="25" rx="10" ry="15" fill="#e0fbfc" opacity="0.8"/>
+                    <circle cx="30" cy="30" r="3" fill="#ef4444"/> <circle cx="50" cy="30" r="3" fill="#ef4444"/>
+                </svg>
+            </div>
+            
+            <!-- KHỐI B: Tóm tắt lý thuyết -->
+            <div class="theory-box">
+                <h3>📌 Kiến thức trọng tâm</h3>
+                <ul>
+                    <li><b>Phát hiện:</b> Thomas Morgan phát hiện hiện tượng di truyền liên kết trên đối tượng ruồi giấm (Drosophila melanogaster).</li>
+                    <li><b>Khái niệm:</b> Các gene nằm trên cùng một nhiễm sắc thể (NST) sẽ phân li cùng nhau trong quá trình giảm phân, tạo thành <b>nhóm gen liên kết</b>.</li>
+                    <li><b>Ý nghĩa:</b> Đảm bảo sự di truyền ổn định của từng nhóm tính trạng, làm hạn chế sự xuất hiện của biến dị tổ hợp. Số nhóm gen liên kết của loài bằng số NST trong bộ đơn bội (n).</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="part-title">🎯 PHẦN B: BÀI TẬP TƯƠNG TÁC</div>
+        <div id="quiz-container">
+            <!-- Render bài tập qua JavaScript -->
+        </div>
+
+        <button class="btn btn-submit" id="btn-submit" onclick="submitQuiz()">NỘP BÀI VÀ GỌI CÚ MÈO CHẤM ĐIỂM 🚀</button>
+        <div id="submit-msg" class="text-center hidden" style="margin-top: 25px; font-weight: 800; padding: 25px; border-radius: var(--radius-lg); background: #e2eafc; color: #1d3557; font-size: 14pt; border: 4px dashed #abc4ff;"></div>
+    </div>
+
+</div>
+
+<script>
+// ==========================================
+// DỮ LIỆU CÂU HỎI (Chuẩn KHTN 9 - Bài 45)
+// ==========================================
+const questions = [
+    { 
+        id: "q1", type: "mcq", lvl: "Nhận biết", 
+        text: "Đối tượng nào được T. Morgan sử dụng để phát hiện ra hiện tượng di truyền liên kết?", 
+        opts: ["Cây đậu Hà Lan", "Ruồi giấm", "Chuột bạch", "Vi khuẩn E. coli"], 
+        ans: 1, 
+        exp: "Morgan gắn liền với phòng thí nghiệm Ruồi giấm huyền thoại nhé. Đậu Hà Lan là của Mendel." 
+    },
+    { 
+        id: "q2", type: "tf", lvl: "Thông hiểu", 
+        text: "Xác định tính Đúng/Sai của các nhận định sau về di truyền liên kết:", 
+        stmts: [
+            "Các gen nằm trên cùng một nhiễm sắc thể luôn phân li độc lập với nhau.", 
+            "Di truyền liên kết làm hạn chế sự xuất hiện của biến dị tổ hợp."
+        ], 
+        ans: ["S", "D"], 
+        exp: "Nằm trên cùng 1 NST thì các gen bị 'khóa' lại với nhau (liên kết), nên không thể phân li độc lập được, từ đó làm giảm biến dị tổ hợp." 
+    },
+    { 
+        id: "q3", type: "fill", lvl: "Thông hiểu", 
+        text: "Số nhóm gen liên kết của một loài thường bằng bộ nhiễm sắc thể [1] (n) của loài đó.", 
+        blanks: ["đơn bội"], 
+        exp: "Chính xác! Số nhóm gen liên kết = số NST trong bộ đơn bội (n)." 
+    },
+    { 
+        id: "q4", type: "drag", lvl: "Vận dụng", 
+        text: "Ghép kí hiệu kiểu gen liên kết với tên gọi cho đúng:", 
+        pool: ["Dị hợp tử đều", "Dị hợp tử chéo"], 
+        tgts: ["Kiểu gen AB/ab", "Kiểu gen Ab/aB"], 
+        ans: ["Dị hợp tử đều", "Dị hợp tử chéo"], 
+        exp: "AB/ab là đều (trội đi với trội, lặn đi với lặn). Ab/aB là chéo (1 trội đi với 1 lặn)." 
+    },
+    { 
+        id: "q5", type: "mcq", lvl: "Vận dụng", 
+        text: "Cơ thể có kiểu gen AB/ab giảm phân (liên kết hoàn toàn, không có hoán vị) sẽ tạo ra các loại giao tử nào?", 
+        opts: ["100% AB", "1 AB : 1 ab", "1 Ab : 1 aB", "1 AB : 1 Ab : 1 aB : 1 ab"], 
+        ans: 1, 
+        exp: "Do liên kết hoàn toàn, NST không bị đứt gãy nên chỉ tạo ra 2 loại giao tử mang gen liên kết là AB và ab với tỉ lệ 1:1." 
+    }
+];
+
+// ==========================================
+// QUẢN LÝ TRẠNG THÁI APP
+// ==========================================
+let studentName = "";
+let studentClass = "";
+let timerSeconds = 0;
+let timerInterval = null;
+let isSubmitted = false;
+let userAnswers = {};
+let dragItemTmp = null;
+
+// ==========================================
+// LOGIC GIAO DIỆN & TƯƠNG TÁC
+// ==========================================
+function startLearning() {
+    let n = document.getElementById('inp-name').value.trim();
+    let c = document.getElementById('inp-class').value.trim();
+    if(!n || !c) {
+        alert("Ối! Em nhớ điền đủ Họ tên và Lớp nhé!");
+        return;
+    }
+    
+    // Khởi tạo thông tin
+    studentName = n; 
+    studentClass = c;
+    document.getElementById('display-name').innerText = n; 
+    document.getElementById('display-class').innerText = c;
+    
+    // Chuyển màn hình
+    document.getElementById('screen-login').classList.add('hidden');
+    buildQuiz();
+    document.getElementById('screen-lesson').classList.remove('hidden');
+
+    // Bắt đầu đếm giờ
+    timerSeconds = 0;
+    timerInterval = setInterval(() => {
+        timerSeconds++;
+        let m = Math.floor(timerSeconds/60).toString().padStart(2,'0');
+        let s = (timerSeconds%60).toString().padStart(2,'0');
+        document.getElementById('timer').innerText = `⏱️ ${m}:${s}`;
+    }, 1000);
+}
+
+function buildQuiz() {
+    let html = "";
+    questions.forEach((q, i) => {
+        let lvlCls = q.lvl === 'Nhận biết' ? 'lvl-nb' : (q.lvl === 'Thông hiểu' ? 'lvl-th' : 'lvl-vd');
+
+        html += `<div class="q-card" id="${q.id}">
+                    <div class="lvl-badge ${lvlCls}">${q.lvl}</div>
+                    <div class="q-text">Câu ${i+1}: ${q.text}</div>`;
+        
+        if(q.type === 'mcq') {
+            html += `<div class="mcq-grid">`;
+            q.opts.forEach((opt, oi) => { 
+                html += `<div class="mcq-opt" onclick="selMCQ(this, '${q.id}', ${oi})">${String.fromCharCode(65+oi)}. ${opt}</div>`; 
+            });
+            html += `</div>`;
+        } 
+        else if(q.type === 'tf') {
+            html += `<table class="tf-table"><tr><th>Phát biểu</th><th width="100">Đúng</th><th width="100">Sai</th></tr>`;
+            q.stmts.forEach((st, si) => {
+                html += `<tr><td>${st}</td>
+                         <td class="text-center"><button class="tf-btn" onclick="selTF(this, '${q.id}_${si}', 'D')">Đúng</button></td>
+                         <td class="text-center"><button class="tf-btn" onclick="selTF(this, '${q.id}_${si}', 'S')">Sai</button></td></tr>`;
+            });
+            html += `</table>`;
+        } 
+        else if(q.type === 'fill') {
+            html += `<div class="word-bank">Từ khóa gợi ý: ${q.blanks.join(", ")}</div><div class="fill-text">`;
+            let txt = q.text.replace(/\[(\d+)\]/g, (m, p1) => {
+                return `<input type="text" class="fill-inp" id="${q.id}_${p1}" placeholder="Gõ từ..." onfocus="chkLock(event)">`;
+            });
+            html += `${txt}</div>`;
+        } 
+        else if(q.type === 'drag') {
+            html += `<div class="drag-pool">`;
+            q.pool.forEach((itm, ii) => { html += `<div class="drag-item" id="${q.id}_i${ii}" onclick="selDrag(this, '${itm}')">${itm}</div>`; });
+            html += `</div><table class="tf-table"><tr><th>Mục tiêu ghép</th><th>Khu vực ghép (Chạm thẻ ➔ Chạm ô)</th></tr>`;
+            q.tgts.forEach((tgt, ti) => { html += `<tr><td><b>${tgt}</b></td><td><div class="drop-zone" id="${q.id}_z${ti}" onclick="dropTag(this, '${q.id}')">Thả thẻ vào đây</div></td></tr>`; });
+            html += `</table>`;
+        }
+        
+        // Vùng chứa lời giải thích của AI (ẩn mặc định)
+        html += `<div class="feedback" id="fb-${q.id}"></div></div>`;
+    });
+
+    document.getElementById('quiz-container').innerHTML = html;
+}
+
+// --- XỬ LÝ TƯƠNG TÁC BÀI TẬP ---
+function chkLock(e) { if(isSubmitted) { e.preventDefault(); e.target.blur(); } }
+
+function selMCQ(elem, qId, val) {
+    if(isSubmitted) return;
+    elem.parentElement.querySelectorAll('.mcq-opt').forEach(i => i.classList.remove('selected'));
+    elem.classList.add('selected'); userAnswers[qId] = val;
+}
+
+function selTF(elem, key, val) {
+    if(isSubmitted) return;
+    elem.parentElement.parentElement.querySelectorAll('.tf-btn').forEach(i => i.classList.remove('selected'));
+    elem.classList.add('selected'); userAnswers[key] = val;
+}
+
+function selDrag(elem, txt) {
+    if(isSubmitted || elem.classList.contains('used')) return;
+    document.querySelectorAll('.drag-item').forEach(i => i.classList.remove('active'));
+    elem.classList.add('active'); dragItemTmp = { el: elem, txt: txt };
+}
+
+function dropTag(zone, qId) {
+    if(isSubmitted) return;
+    if(dragItemTmp) {
+        if(zone.dataset.sid) document.getElementById(zone.dataset.sid).classList.remove('used');
+        zone.innerText = dragItemTmp.txt; zone.classList.add('filled');
+        zone.dataset.sid = dragItemTmp.el.id;
+        dragItemTmp.el.classList.remove('active'); dragItemTmp.el.classList.add('used');
+        if(!userAnswers[qId]) userAnswers[qId] = {}; userAnswers[qId][zone.id] = dragItemTmp.txt;
+        dragItemTmp = null;
+    } else if(zone.dataset.sid) {
+        document.getElementById(zone.dataset.sid).classList.remove('used'); zone.innerText = "Thả thẻ vào đây"; zone.classList.remove('filled');
+        delete zone.dataset.sid; delete userAnswers[qId][zone.id];
+    }
+}
+
+// --- CHẤM ĐIỂM & GỬI GOOGLE SHEETS ---
+function submitQuiz() {
+    if(isSubmitted) return; 
+    if(!confirm("Em đã kiểm tra kĩ chưa? Chắc chắn nộp bài chứ? Nộp xong là không được sửa lại đâu nha!")) return;
+    
+    isSubmitted = true; clearInterval(timerInterval); // 1. Dừng đồng hồ
+    
+    // Khóa giao diện
+    document.querySelectorAll('.mcq-opt, .drag-item, .drop-zone, .tf-btn').forEach(e => e.style.pointerEvents = 'none');
+    document.querySelectorAll('.fill-inp').forEach(e => { e.readOnly = true; e.style.color = '#d81b60'; });
+
+    let correctItems = 0;
+    let totalItems = 0;
+    let details = [];
+
+    // 2. Chấm điểm
+    questions.forEach((q, idx) => {
+        let fb = document.getElementById(`fb-${q.id}`); 
+        fb.style.display = 'flex';
+        let qs = 0; 
+
+        if(q.type === 'mcq') {
+            totalItems += 1;
+            if(userAnswers[q.id] === q.ans) { qs=1; correctItems++; }
+        }
+        else if(q.type === 'fill') {
+            totalItems += q.blanks.length; let c = 0;
+            q.blanks.forEach((b,i) => {
+                let v = document.getElementById(`${q.id}_${i+1}`).value.trim().toLowerCase();
+                if(v === b.toLowerCase()) { c++; correctItems++; }
+            });
+            qs = c / q.blanks.length;
+        }
+        else if(q.type === 'tf') {
+            totalItems += q.stmts.length; let c = 0;
+            q.stmts.forEach((s,i) => {
+                if(userAnswers[`${q.id}_${i}`] === q.ans[i]) { c++; correctItems++; }
+            });
+            qs = c / q.stmts.length;
+        }
+        else if(q.type === 'drag') {
+            totalItems += q.tgts.length; let c = 0;
+            q.tgts.forEach((t,i) => {
+                if(userAnswers[q.id] && userAnswers[q.id][`${q.id}_z${i}`] === q.ans[i]) { c++; correctItems++; }
+            });
+            qs = c / q.tgts.length;
+        }
+        
+        // Cú Mèo AI Feedback
+        if(qs === 1){ 
+            fb.className='feedback fb-correct'; 
+            fb.innerHTML=`<div class="ai-avatar">🦉</div><div class="ai-bubble"><p class="ai-title">Cú Mèo khen ngợi:</p><p class="ai-exp">U là trời, xuất sắc! Chuẩn không cần chỉnh!<br>💡 <i>Giải thích:</i> ${q.exp}</p></div>`; 
+            details.push(`C${idx+1}: Đúng`); 
+        } else if (qs > 0) {
+            fb.className='feedback fb-wrong'; 
+            fb.innerHTML=`<div class="ai-avatar">🦉</div><div class="ai-bubble"><p class="ai-title">Cú Mèo nhắc nhẹ:</p><p class="ai-exp">Đúng một xíu rồi, cố lên xíu nữa nha em!<br>💡 <i>Gợi ý:</i> ${q.exp}</p></div>`; 
+            details.push(`C${idx+1}: Thiếu`); 
+        } else { 
+            fb.className='feedback fb-wrong'; 
+            fb.innerHTML=`<div class="ai-avatar">🦉</div><div class="ai-bubble"><p class="ai-title">Cú Mèo tiếc nuối:</p><p class="ai-exp">Xí hụt rồi! Lần sau đọc kỹ lý thuyết nha.<br>💡 <i>Giải thích:</i> ${q.exp}</p></div>`; 
+            details.push(`C${idx+1}: Sai`); 
+        }
+    });
+
+    // Tính Điểm hệ 10
+    let finalScore = parseFloat(((correctItems/totalItems)*10).toFixed(1));
+    let m = Math.floor(timerSeconds/60).toString().padStart(2,'0'); 
+    let s = (timerSeconds%60).toString().padStart(2,'0');
+    let timeStr = `${m}:${s}`;
+    
+    document.getElementById('btn-submit').classList.add('hidden');
+    let msg = document.getElementById('submit-msg'); 
+    msg.classList.remove('hidden'); 
+    msg.innerHTML = `🌟 <b>ĐIỂM CỦA EM: ${finalScore}/10 (${correctItems}/${totalItems} ý đúng)</b><br>⏳ Cú Mèo đang bay đi gửi kết quả về Google Sheets...`;
+
+    // 3. Chuẩn bị JSON Payload chuẩn xác yêu cầu
+    const payload = {
+        "hovaten": studentName,
+        "lop": studentClass,
+        "tenchude/baihoc": "Bài 45: Di truyền liên kết",
+        "diemSo": finalScore,
+        "socaudung": `${correctItems}/${totalItems}`,
+        "thoigianlambaithi": timeStr,
+        "chiTiet": details.join(" | ")
+    };
+
+    // Gọi hàm gửi
+    guiKetQuaVeSheet(payload);
+}
+
+// Hàm gửi API Fetch
+function guiKetQuaVeSheet(payload) {
+    fetch("https://script.google.com/macros/s/AKfycby8jAUInEMvBhkkW8-OCIKobvuEOBGR6r9kcRkHcRtk72rhyRp0r7nx4JAkBkPifQg/exec", {
+        method: "POST", 
+        mode: "no-cors", 
+        headers: { "Content-Type": "application/json" }, 
+        body: JSON.stringify(payload)
+    })
+    .then(() => {
+        let msg = document.getElementById('submit-msg');
+        msg.innerHTML = `✅ <b>NỘP BÀI THÀNH CÔNG!</b> <br>💯 Điểm: ${payload.diemSo}/10 - Đúng: ${payload.socaudung} ý.<br><i>Cú Mèo đã gửi báo cáo về cho cô giáo rồi nhé! Em làm tốt lắm!</i>`;
+        msg.style.background = "#d8f3dc"; msg.style.color = "#1b4332"; msg.style.border = "4px dashed #40916c";
+        alert("🎉 Nộp bài thành công! Kết quả đã được gửi về hệ thống của giáo viên.");
+    })
+    .catch((err) => {
+        console.error("Lỗi:", err);
+        let msg = document.getElementById('submit-msg');
+        msg.innerHTML = `⚠️ <b>Đã chấm xong!</b><br>💯 Điểm: ${payload.diemSo}/10 - Đúng: ${payload.socaudung} ý.<br><i>Nhưng Cú Mèo bị rớt mạng, không thể gửi điểm tự động. Em nhớ báo lại cho giáo viên nhé!</i>`;
+        msg.style.background = "#ffdad6"; msg.style.color = "#ba1a1a"; msg.style.border = "4px dashed #d81b60";
+        alert("Có lỗi khi kết nối Google Sheet!");
+    });
+}
+</script>
+</body>
+</html>
